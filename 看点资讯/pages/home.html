@@ -1,0 +1,546 @@
+<div id="home">
+	<!-- 布局 -->
+	<div class="outerDiv">
+		<div class="row">
+			<div class="col-sm-3">
+				<!-- 3个div -->
+				<div class="totalDiv bg-white">
+					<div class="iconDiv bg-green">
+						<i class="iconfont icon-yun"></i>
+					</div>
+					<div class="numDiv">
+						<span>99.9%</span>
+						<small>SERVER UPTIME</small>
+					</div>
+				</div>
+				<div class="totalDiv bg-white">
+					<div class="iconDiv bg-green">
+						<i class="iconfont icon-yun"></i>
+					</div>
+					<div class="numDiv">
+						<span>99.9%</span>
+						<small>SERVER UPTIME</small>
+					</div>
+				</div>
+				<div class="totalDiv bg-white">
+					<div class="iconDiv bg-green">
+						<i class="iconfont icon-yun"></i>
+					</div>
+					<div class="numDiv">
+						<span>99.9%</span>
+						<small>SERVER UPTIME</small>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="visDiv">
+					<div id="visContainer"></div>
+					<div class="numDiv">
+						<span>14.85%</span>
+						<small>More Visitors</small>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-3">
+				<div class="uptimeDiv">
+					<div id="uptimeContainer"></div>
+					<div class="numDiv">
+						<span>14.85%</span>
+						<small>More Visitors</small>
+					</div>
+				</div>
+				<div class="salesDiv">
+					<div id="salesContainer"></div>
+					<div class="numDiv">
+						<span>14.85%</span>
+						<small>More Visitors</small>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<!-- 下面一行 -->
+	<div class="bottomDiv">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="circleDiv bg-white">
+					<div id="circle"></div>
+				</div>
+			</div>
+
+			
+
+			<div class="col-sm-6">
+				<div class="loadDiv">
+					<div id="speed"></div>
+				</div>
+
+				<div class="cpuDiv">
+					<div id="cpu"></div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	
+</div>
+
+<script>
+
+	$(function(){
+
+		drawVis();
+		drawUptime();
+		drawSales();
+        
+		drawCircle();
+       
+		drawCpu();
+		 drawLoad();
+		
+		function drawSales(){
+			var chart = Highcharts.chart('salesContainer', {
+				credits:{
+					enabled:false,
+				},
+				chart: {
+					margin : [0, 0 , 0, 100]
+				},
+				title: {
+					floating:true,
+					text: ''
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: false,
+						},
+					}
+				},
+				series: [{
+					type: 'pie',
+					innerSize: '60%',
+					name: 'Sales',
+					data: [
+						['Firefox',45.0],
+						['IE',26.8],
+						['Chrome',12.8],
+						['Safari',8.5],
+						['Opera',6.2],
+						['其他',0.7]
+					]
+				}]
+			});
+		}
+		function drawUptime(){
+			var chart = Highcharts.chart('uptimeContainer', {
+				chart:{
+					margin:[0,0,0,0],
+				},
+				credits:{
+					enabled:false,
+				},
+				colors:['#862eb7'],
+				title: {
+					text: ''
+				},
+				xAxis: {
+					visible:false,
+				},
+				yAxis: {
+					visible:false,
+				},
+				series: [{
+					type: 'column',
+					colorByPoint: true,
+					data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4,148.5, 216.4, 194.1, 95.6, 54.4],
+					showInLegend: false
+				}]
+			});
+		}
+		function drawVis(){
+			// 绘制
+			var chart = Highcharts.chart('visContainer', {
+				chart:{
+					margin:[0,0,0,0],
+				},
+				credits:{
+					enabled:false,
+				},
+				colors:['#66bb0d','#cccccc'],
+				title: {
+					text: ''
+				},
+				xAxis: {
+					visible:false,
+				},
+				yAxis: {
+					visible:false,
+					title: {
+						text: ''
+					}
+				},
+				legend: {
+					floating:true,
+					layout: 'vertical',
+					align: 'right',
+					verticalAlign: 'top'
+				},
+				plotOptions: {
+					series: {
+						label: {
+							connectorAllowed: false
+						},
+						pointStart: 2010
+					}
+				},
+				series: [{
+					name: 'Page',
+					data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175,24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+				}, {
+					name: 'Visitors',
+					data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434,43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
+				}]
+			});
+		}
+
+
+
+		//bottom一行从此处开始
+
+		function drawCircle(){
+			var chart = Highcharts.chart('circle',{
+	credits:{
+		enabled:false,
+	},
+	chart: {
+		type: 'area'
+	},
+	title: {
+		text: '美苏核武器库存量'
+	},
+	subtitle: {
+		text: '数据来源: <a href="https://thebulletin.metapress.com/content/c4120650912x74k7/fulltext.pdf">' +
+		'thebulletin.metapress.com</a>'
+	},
+	xAxis: {
+		allowDecimals: false
+	},
+	yAxis: {
+		title: {
+			text: '核武库国家'
+		},
+		labels: {
+			formatter: function () {
+				return this.value / 1000 + 'k';
+			}
+		}
+	},
+	tooltip: {
+		pointFormat: '{series.name} 制造 <b>{point.y:,.0f}</b>枚弹头'
+	},
+	plotOptions: {
+		area: {
+			pointStart: 1940,
+			marker: {
+				enabled: false,
+				symbol: 'circle',
+				radius: 2,
+				states: {
+					hover: {
+						enabled: true
+					}
+				}
+			}
+		}
+	},
+	series: [{
+		name: '美国',
+		data: [null, null, null, null, null, 6, 11, 32, 110, 235, 369, 640,
+			   1005, 1436, 2063, 3057, 4618, 6444, 9822, 15468, 20434, 24126,
+			   27387, 29459, 31056, 31982, 32040, 31233, 29224, 27342, 26662,
+			   26956, 27912, 28999, 28965, 27826, 25579, 25722, 24826, 24605,
+			   24304, 23464, 23708, 24099, 24357, 24237, 24401, 24344, 23586,
+			   22380, 21004, 17287, 14747, 13076, 12555, 12144, 11009, 10950,
+			   10871, 10824, 10577, 10527, 10475, 10421, 10358, 10295, 10104]
+	}, {
+		name: '苏联/俄罗斯',
+		data: [null, null, null, null, null, null, null, null, null, null,
+			   5, 25, 50, 120, 150, 200, 426, 660, 869, 1060, 1605, 2471, 3322,
+			   4238, 5221, 6129, 7089, 8339, 9399, 10538, 11643, 13092, 14478,
+			   15915, 17385, 19055, 21205, 23044, 25393, 27935, 30062, 32049,
+			   33952, 35804, 37431, 39197, 45000, 43000, 41000, 39000, 37000,
+			   35000, 33000, 31000, 29000, 27000, 25000, 24000, 23000, 22000,
+			   21000, 20000, 19000, 18000, 18000, 17000, 16000]
+	}]
+});
+		}
+
+
+
+		//第二图
+	function drawLoad(){
+			var chart = Highcharts.chart('speed', {
+	credits:{
+		enabled:false,
+	},
+	chart: {
+		zoomType: 'xy'
+	},
+	title: {
+		text: '东京月平均天气数据'
+	},
+	subtitle: {
+		text: '数据来源: WorldClimate.com'
+	},
+	xAxis: [{
+		categories: [
+			'一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月'
+		],
+		crosshair: true
+	}],
+	yAxis: [{ // Primary yAxis
+		labels: {
+			format: '{value}°C',
+			style: {
+				color: Highcharts.getOptions().colors[2]
+			}
+		},
+		title: {
+			text: '温度',
+			style: {
+				color: Highcharts.getOptions().colors[2]
+			}
+		},
+		opposite: true
+	}, { // Secondary yAxis
+		gridLineWidth: 0,
+		title: {
+			text: '降雨量',
+			style: {
+				color: Highcharts.getOptions().colors[0]
+			}
+		},
+		labels: {
+			format: '{value} mm',
+			style: {
+				color: Highcharts.getOptions().colors[0]
+			}
+		}
+	}, { // Tertiary yAxis
+		gridLineWidth: 0,
+		title: {
+			text: '海平面气压',
+			style: {
+				color: Highcharts.getOptions().colors[1]
+			}
+		},
+		labels: {
+			format: '{value} mb',
+			style: {
+				color: Highcharts.getOptions().colors[1]
+			}
+		},
+		opposite: true
+	}],
+	tooltip: {
+		shared: true
+	},
+	legend: {
+		layout: 'vertical',
+		align: 'left',
+		x: 80,
+		verticalAlign: 'top',
+		y: 55,
+		floating: true,
+		backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+	},
+	series: [{
+		name: '降雨量',
+		type: 'column',
+		yAxis: 1,
+		data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+		tooltip: {
+			valueSuffix: ' mm'
+		}
+	}, {
+		name: '海平面气压',
+		type: 'spline',
+		yAxis: 2,
+		data: [1016, 1016, 1015.9, 1015.5, 1012.3, 1009.5, 1009.6, 1010.2, 1013.1, 1016.9, 1018.2, 1016.7],
+		marker: {
+			enabled: false
+		},
+		dashStyle: 'shortdot',
+		tooltip: {
+			valueSuffix: ' mb'
+		}
+	}, {
+		name: '温度',
+		type: 'spline',
+		data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
+		tooltip: {
+			valueSuffix: ' °C'
+		}
+	}]
+});
+
+			}
+//第三图
+        function drawCpu(){
+   var chart = Highcharts.chart('cpu', {
+	chart: {
+		type: 'pie',
+		options3d: {
+			enabled: true,
+			alpha: 45,
+			beta: 0
+		}
+	},
+	credits:{
+		enabled:false,
+	},
+	title: {
+		text: '浏览器占比'
+	},
+	tooltip: {
+		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+	},
+	plotOptions: {
+		pie: {
+			allowPointSelect: true,
+			cursor: 'pointer',
+			depth: 35,
+			dataLabels: {
+				enabled: true,
+				format: '{point.name}'
+			}
+		}
+	},
+	series: [{
+		type: 'pie',
+		name: '浏览器占比',
+		data: [
+			['Firefox',   45.0],
+			['IE',       26.8],
+			{
+				name: 'Chrome',
+				y: 12.8,
+				sliced: true,
+				selected: true
+			},
+			['Safari',    8.5],
+			['Opera',     6.2],
+			['Others',   0.7]
+		]
+	}]
+});
+}
+
+
+	});
+</script>
+<style>
+	#home{
+
+	}
+	.bg-white{
+		background-color: white;
+	}
+	.bg-green{
+		background-color:#66bb0d;
+	}
+	.outerDiv{
+		width: 95%;
+		margin:0 auto;
+	}
+	.totalDiv{
+		overflow:hidden;
+		padding: 10px;
+		border-radius: 5px;
+		margin-top:10px;
+	}
+	.totalDiv .iconDiv,.totalDiv .numDiv{
+		float:left; 
+	}
+	.iconDiv{
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		text-align: center;
+	}
+	.iconDiv i{
+		line-height: 50px;
+		color:white;
+		font-size: 30px;
+	}
+	.totalDiv .numDiv{
+		margin-left: 20px;
+		padding-top:5px;
+	}
+	.numDiv span{
+		font-size: 24px;
+		line-height: 24px;
+	}
+	.numDiv small{
+		display: block;
+	}
+	#visContainer{
+		height: 230px;
+		margin-top: 10px;
+	}
+	.visDiv,.uptimeDiv,.salesDiv{
+		position: relative;
+	}
+	.visDiv .numDiv,.uptimeDiv .numDiv,.salesDiv .numDiv{
+		position: absolute;
+		top:20px;
+		left: 20px;
+	}
+	.visDiv span{
+		color:#66bb0d;
+		/*color:#862eb7;*/
+	}
+	.uptimeDiv,.salesDiv{
+		margin-top: 10px;
+	}
+	#uptimeContainer,#salesContainer{
+		height: 110px;
+	}
+	.bottomDiv{
+		height:800px;
+		margin-top:40px;
+		margin-left:30px;
+	}
+	#circle{
+		width:400px;
+		height:500px;
+	}
+	
+	
+	#speed{
+		width:400px;
+		height:300px;
+		margin-left:80px;
+
+	}
+	#cpu{
+        z-index: 999;
+		width:400px;
+		height:180px;
+		margin-top:20px;
+		margin-left:80px;
+
+	}
+	
+</style>
+
+
+
